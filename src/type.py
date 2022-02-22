@@ -35,11 +35,3 @@ class continuous:
 
     def __str__(self):
         return f"[Name: {self.data.name}, Lenght: {self.data.size}, dtype: {self.data.dtype}, subtype: { self.subtype}]"
-
-
-if __name__ == "__main__":
-    import pandas
-    df = pandas.read_csv(
-        "C:/Users/shubham/Downloads/State Pregnancy-Birth-Abortion Rates.csv")
-    obj0 = discrete(df["State"])
-    print(obj0)

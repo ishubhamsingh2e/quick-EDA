@@ -1,3 +1,4 @@
 #dirs
 temp/
 venv/
+__pycache__/

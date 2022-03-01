@@ -17,9 +17,20 @@ class base:
     """
 
     def __init__(self, data_frame: pandas.DataFrame) -> None:
+        """datatabel is dataframe,
+           datatype_map is structure storing datatypes
+           nominaldata map is data
+
+        Args:
+            data_frame (pandas.DataFrame): _description_
+
+        Returns:
+            _type_: _description_
+        """
         self.__date_table: pandas.DataFrame = data_frame
         self.datatype_map = dict()
         self.nominal_dataMap = dict()
+        self.__queue = set()
 
         try:
             for column in self.__date_table.columns:

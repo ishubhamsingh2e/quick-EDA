@@ -1,4 +1,7 @@
 import pandas
+from colorama import Fore
+
+# don't change order
 default_types = (
     "object",
     "nominal",

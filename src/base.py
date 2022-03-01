@@ -141,16 +141,15 @@ class base:
                 Fore.WHITE + "data loss is possible, to conform press (y or n) > ")
 
             if (conf == "y" or conf == "Y"):
-                self.__date_table.astype({
-                    serise_name: int
-                })
+                self.__date_table[serise_name] = self.__date_table[serise_name].astype(
+                    int)
                 self.__datatype_map[serise_name] = default_types[3]
-                print(Fore.GREEN + "Conversion Sucess")
+                print(Fore.GREEN + "Conversion Sucess\n", Fore.WHITE)
                 return 0
             elif (conf == "n" or conf == "N"):
                 return 0
             else:
-                print(Fore.RED + "ERROR OCCURRED")
+                print(Fore.RED + "ERROR OCCURRED" + Fore.WHITE)
                 return 0
             return 0
         else:

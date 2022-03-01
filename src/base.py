@@ -98,6 +98,22 @@ class base:
         Returns:
             bool: Success = 0, Failure = 1
         """
+
+        if order:
+            if to_num:
+                counter = 0
+                for value in order:
+                    self.__date_table[serise_name].replace({
+                        value: counter
+                    })
+                    counter += 1
+            else:
+                self.__queue = order
+            return 0
+
+        else:
+            return 1
+
         if (serise_name and (serise_name in self.datatype_map.keys())):
             self.datatype_map[serise_name] = default_types[2]
             return 0

@@ -52,19 +52,20 @@ class base:
         for i in value_dict.keys():
             if i in self.datatype_map and value_dict[i] in default_types:
                 if value_dict[i] == "nominal":
-                    unique = set(self.__date_table[i])
-                    counter = 0
-                    for unique_value in unique:
-                        self.nominal_dataMap[unique_value] = 0
-                        self.__date_table[i].replace({
-                            unique_value: counter
-                        }, inplace=True)
-                        counter += 1
+                    unique = self.__date_table[i].unique()
+                    if to_num:
+                        counter = 0
+                        for unique_value in unique:
+                            self.nominal_dataMap[unique_value] = counter
+                            self.__date_table[i].replace({
+                                unique_value: counter
+                            }, inplace=True)
+                            counter += 1
                 self.datatype_map[i] = value_dict[i]
             else:
                 return 1
 
-    def to_nominal(self, serise_name: str) -> bool:
+    def to_nominal(self, serise_name: str, to_num: bool = False) -> bool:
         """conver a seriese to nominal data type
 
         Args:
@@ -75,19 +76,20 @@ class base:
         """
         if (serise_name and (serise_name in self.datatype_map.keys())):
             self.datatype_map[serise_name] = default_types[1]
-            unique = set(self.__date_table[serise_name])
-            counter = 0
-            for unique_value in unique:
-                self.nominal_dataMap[unique_value] = 0
-                self.__date_table[serise_name].replace({
-                    unique_value: counter
-                }, inplace=True)
-                counter += 1
-            return 0
+            unique = self.__date_table[serise_name].unique()
+            if to_num:
+                counter = 0
+                for unique_value in unique:
+                    self.nominal_dataMap[unique_value] = counter
+                    self.__date_table[serise_name].replace({
+                        unique_value: counter
+                    }, inplace=True)
+                    counter += 1
+                return 0
         else:
             return 1
 
-    def to_ordinal(self, serise_name: str) -> bool:
+    def to_ordinal(self, serise_name: str, order: set, to_num=False) -> bool:
         """converts a series to ordinal data type
 
         Args:

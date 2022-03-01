@@ -166,12 +166,12 @@ class base:
         """
         if (serise_name and (serise_name in self.__datatype_map.keys())):
             try:
-                self.__date_table.astype({
-                    serise_name: float
-                })
+                self.__date_table[serise_name] = self.__date_table[serise_name].astype(
+                    float)
                 self.__datatype_map[serise_name] = default_types[4]
             except:
-                print(f"no able to conver data to {default_types[4]}")
+                print(
+                    Fore.RED + f"Not able to conver data to {default_types[4]}\n" + Fore.WHITE)
                 return 0
         else:
             return 1

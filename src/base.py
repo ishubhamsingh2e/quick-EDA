@@ -1,4 +1,5 @@
 import pandas
+import pprint
 from colorama import Fore
 
 # don't change order
@@ -21,7 +22,7 @@ class base:
 
     def __init__(self, data_frame: pandas.DataFrame) -> None:
         """datatabel is dataframe,
-           datatype_map is structure storing datatypes
+           __datatype_map is structure storing datatypes
            nominaldata map is data
 
         Args:
@@ -31,13 +32,13 @@ class base:
             _type_: _description_
         """
         self.__date_table: pandas.DataFrame = data_frame
-        self.datatype_map = dict()
+        self.__datatype_map = dict()
         self.nominal_dataMap = dict()
         self.__queue = set()
 
         try:
             for column in self.__date_table.columns:
-                self.datatype_map[column] = str(
+                self.__datatype_map[column] = str(
                     self.__date_table[column].dtype)
         except:
             return None
@@ -53,7 +54,7 @@ class base:
             bool: Success = 0, Failure = 1
         """
         for i in value_dict.keys():
-            if i in self.datatype_map and value_dict[i] in default_types:
+            if i in self.__datatype_map and value_dict[i] in default_types:
                 if value_dict[i] == "nominal":
                     unique = self.__date_table[i].unique()
                     if to_num:
@@ -64,7 +65,7 @@ class base:
                                 unique_value: counter
                             }, inplace=True)
                             counter += 1
-                self.datatype_map[i] = value_dict[i]
+                self.__datatype_map[i] = value_dict[i]
             else:
                 return 1
 
@@ -77,8 +78,8 @@ class base:
         Returns:
             bool: Success = 0, Failure = 1
         """
-        if (serise_name and (serise_name in self.datatype_map.keys())):
-            self.datatype_map[serise_name] = default_types[1]
+        if (serise_name and (serise_name in self.__datatype_map.keys())):
+            self.__datatype_map[serise_name] = default_types[1]
             unique = self.__date_table[serise_name].unique()
             if to_num:
                 counter = 0
@@ -117,8 +118,8 @@ class base:
         else:
             return 1
 
-        if (serise_name and (serise_name in self.datatype_map.keys())):
-            self.datatype_map[serise_name] = default_types[2]
+        if (serise_name and (serise_name in self.__datatype_map.keys())):
+            self.__datatype_map[serise_name] = default_types[2]
             return 0
         else:
             return 1
@@ -133,7 +134,7 @@ class base:
             bool: Success = 0, Failure = 1
         """
 
-        if (serise_name and (serise_name in self.datatype_map.keys())):
+        if (serise_name and (serise_name in self.__datatype_map.keys())):
             print(Fore.RED + 'Warning: ', end="")
             conf = input(
                 Fore.WHITE + "data loss is possible, to conform press (y or n) > ")
@@ -142,7 +143,7 @@ class base:
                 self.__date_table.astype({
                     serise_name: int
                 })
-                self.datatype_map[serise_name] = default_types[3]
+                self.__datatype_map[serise_name] = default_types[3]
                 print(Fore.GREEN + "Conversion Sucess")
                 return 0
             elif (conf == "n" or conf == "N"):
@@ -163,11 +164,30 @@ class base:
         Returns:
             bool: Success = 0, Failure = 1
         """
-        if (serise_name and (serise_name in self.datatype_map.keys())):
-            self.datatype_map[series_name] = default_types[4]
+        if (serise_name and (serise_name in self.__datatype_map.keys())):
+            self.__datatype_map[series_name] = default_types[4]
             return 0
         else:
             return 1
+
+    def info(self, nominal: bool = False):
+        """outputs data information in stdout
+
+        Args:
+            nominal (bool): to show nomial data
+
+        Returns:
+            bool: Success = 0, Failure = 1
+        """
+        if self.__datatype_map.keys() != 0:
+            print("dtyps: ")
+            pprint.pprint(self.__datatype_map)
+            print()
+
+        if self.nominal_dataMap.keys() != 0 and nominal:
+            print("nominal: ")
+            pprint.pprint(self.nominal_dataMap)
+            print()
 
     def __str__(self):
         return f"{self.__date_table}"

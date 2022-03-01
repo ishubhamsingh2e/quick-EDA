@@ -113,8 +113,24 @@ class base:
         Returns:
             bool: Success = 0, Failure = 1
         """
+
         if (serise_name and (serise_name in self.datatype_map.keys())):
-            self.datatype_map[serise_name] = default_types[3]
+            print(Fore.RED + 'Warning: ', end="")
+            conf = input(
+                Fore.WHITE + "data loss is possible, to conform press (y or n) > ")
+
+            if (conf == "y" or conf == "Y"):
+                self.__date_table.astype({
+                    serise_name: int
+                })
+                self.datatype_map[serise_name] = default_types[3]
+                print(Fore.GREEN + "Conversion Sucess")
+                return 0
+            elif (conf == "n" or conf == "N"):
+                return 0
+            else:
+                print(Fore.RED + "ERROR OCCURRED")
+                return 0
             return 0
         else:
             return 1

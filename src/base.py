@@ -39,11 +39,12 @@ class base:
         except:
             return None
 
-    def set_types(self, value_dict: dict) -> bool:
+    def set_types(self, value_dict: dict, to_num: bool = False) -> bool:
         """Set the Type for DataFrame Series.
 
         Args:
             value_dict (dict): dict for data types.
+            to_num (bool): to change character data to numrical, data change to numirical can be found in `nominal_dataMap` class variable.
 
         Returns:
             bool: Success = 0, Failure = 1

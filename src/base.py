@@ -43,7 +43,7 @@ class base:
         except:
             return None
 
-    def set_types(self, value_dict: dict, order: set = set(), to_num: bool = False) -> bool:
+    def set_types(self, value_dict: dict, order: list = [], to_num: bool = False) -> bool:
         """Set the Type for DataFrame Series.
 
         Args:
@@ -104,7 +104,7 @@ class base:
         else:
             return 1
 
-    def to_ordinal(self, serise_name: str, order: set, to_num=False) -> bool:
+    def to_ordinal(self, serise_name: str, order: list, to_num=False) -> bool:
         """converts a series to ordinal data type
 
         Args:

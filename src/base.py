@@ -43,7 +43,7 @@ class base:
         except:
             return None
 
-    def set_types(self, value_dict: dict, to_num: bool = False) -> bool:
+    def set_types(self, value_dict: dict, order: set = set(), to_num: bool = False) -> bool:
         """Set the Type for DataFrame Series.
 
         Args:

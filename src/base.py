@@ -24,12 +24,6 @@ class base:
         """datatabel is dataframe,
            __datatype_map is structure storing datatypes
            nominaldata map is data
-
-        Args:
-            data_frame (pandas.DataFrame): _description_
-
-        Returns:
-            _type_: _description_
         """
         self.__date_table: pandas.DataFrame = data_frame
         self.__datatype_map: dict = dict()

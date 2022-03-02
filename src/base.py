@@ -32,9 +32,9 @@ class base:
             _type_: _description_
         """
         self.__date_table: pandas.DataFrame = data_frame
-        self.__datatype_map = dict()
-        self.nominal_dataMap = dict()
-        self.__queue = set()
+        self.__datatype_map: dict = dict()
+        self.nominal_dataMap: dict = dict()
+        self.__queue: list = []
 
         try:
             for column in self.__date_table.columns:

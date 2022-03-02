@@ -55,20 +55,30 @@ class base:
         """
         # for nominal conversion
         for i in value_dict.keys():
-            if i in self.__datatype_map and value_dict[i] in default_types:
+            if i in self.__datatype_map:
                 if value_dict[i] == "nominal":
-                    unique = self.__date_table[i].unique()
-                    if to_num:
-                        counter = 0
-                        for unique_value in unique:
-                            self.nominal_dataMap[unique_value] = counter
-                            self.__date_table[i].replace({
-                                unique_value: counter
-                            }, inplace=True)
-                            counter += 1
-                self.__datatype_map[i] = value_dict[i]
+                    self.to_nominal(i, to_num)
+                    self.__datatype_map[i] = value_dict[i]
+
+                elif value_dict[i] == "ordinal":
+                    self.to_ordinal(i, order, to_num)
+                    self.__datatype_map[i] = value_dict[i]
+
+                elif value_dict[i] == "discrete":
+                    self.to_discrete(i)
+                    self.__datatype_map[i] = value_dict[i]
+
+                elif value_dict[i] == "continus":
+                    self.to_continuous(i)
+                    self.__datatype_map[i] = value_dict[i]
+
+                else:
+                    print(Fore.RED + "ERROR: " +
+                          Fore.WHITE + f"Not a Valid Type {i}")
             else:
                 return 1
+
+        return 0
 
     def to_nominal(self, serise_name: str, to_num: bool = False) -> bool:
         """conver a seriese to nominal data type

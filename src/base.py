@@ -47,7 +47,7 @@ class base:
         Returns:
             bool: Success = 0, Failure = 1
         """
-        # for nominal conversion
+
         for i in value_dict.keys():
             if i in self.__datatype_map:
                 if value_dict[i] == "nominal":
